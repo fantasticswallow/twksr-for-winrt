@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
@@ -11,9 +12,9 @@ namespace twksr.Network
     /// <summary>
     /// OAuthの署名作成
     /// </summary>
-    class OAuthHelper
+    static class OAuthHelper
     {
-        public string EncryptToSHA1(string key,string data)
+        public static string EncryptToSHA1(string key,string data)
         {
             var hmac = MacAlgorithmProvider.OpenAlgorithm("HMAC_SHA1");
             var keyBuffer = CryptographicBuffer.ConvertStringToBinary(key, BinaryStringEncoding.Utf8);
@@ -22,7 +23,7 @@ namespace twksr.Network
             return CryptographicBuffer.EncodeToBase64String(hashData);
         }
         
-        public string StringDictCombine(Dictionary<String, String> target, string keybitween ,string itembitween)
+        internal static string StringDictCombine(Dictionary<String, String> target, string keybitween ,string itembitween)
         {
             var retStr = "";
             if ((target != null ) && (target.Count > 0))
@@ -38,7 +39,7 @@ namespace twksr.Network
             return retStr;
         }
 
-        private Dictionary<TKey,TValue> DictionarySort<TKey,TValue>(Dictionary<TKey, TValue> arg)
+        internal static Dictionary<TKey,TValue> DictionarySort<TKey,TValue>(Dictionary<TKey, TValue> arg)
         {
             var retDict = new Dictionary<TKey,TValue>();
             var argsList = new List<TKey>(arg.Keys);
@@ -49,6 +50,10 @@ namespace twksr.Network
             }
             return retDict;
         }
+
         
+        
+    
+            
     }
 }
